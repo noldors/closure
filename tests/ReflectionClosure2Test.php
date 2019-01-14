@@ -146,6 +146,18 @@ class ReflectionClosure2Test extends \PHPUnit\Framework\TestCase
         $this->assertEquals($e7, $this->c($f7));
     }
 
+    public function testStaticMethodInstanceOfUsage()
+    {
+        $f1 = function () { Bar::instanceOf(); };
+        $e1 = 'function () { \Foo\Bar::instanceOf(); }';
+
+        $f2 = function () { $any instanceof Bar; };
+        $e2 = 'function () { $any instanceof \Foo\Bar; }';
+
+        $this->assertEquals($e1, $this->c($f1));
+        $this->assertEquals($e2, $this->c($f2));
+    }
+
     public function testThisInsideAnonymousClass()
     {
         $f1 = function() {
